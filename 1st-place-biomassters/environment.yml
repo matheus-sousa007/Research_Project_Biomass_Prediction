@@ -1,0 +1,21 @@
+name: .1st-place-biomassters
+dependencies:
+  - python=3.8
+  - pip
+  - pip:
+    - --extra-index-url https://download.pytorch.org/whl/cu117
+    - numpy
+    - pandas
+    - scikit-learn
+    - scikit-image
+    - Pillow
+    - tqdm
+    - torch==1.13.1
+    - opencv-python-headless==4.5.5.64
+    - timm==0.6.12
+    - segmentation-models-pytorch==0.3.2
+    - tensorboard
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
