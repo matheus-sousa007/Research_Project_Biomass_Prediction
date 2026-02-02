@@ -8,7 +8,7 @@ source /mnt/nfs/home/mvsousa/.bashrc
 conda env create -f /mnt/nfs/home/mvsousa/the-biomassters/1st-place/environment.yml
 conda activate .1st-place-biomassters
 
-mnt_dir=/mnt/nfs/home/mvsousa/the-biomassters/1st-place
+mnt_dir=/mnt/nfs/home/mvsousa/Research_Project_Biomass_Prediction/1st-place-biomassters
 data_dir=$mnt_dir/data
 chkps_dir=$mnt_dir/models
 preds_dir=$mnt_dir/preds

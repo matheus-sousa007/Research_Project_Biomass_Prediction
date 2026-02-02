@@ -30,7 +30,7 @@ T_MAX=${END_EPOCH}
 loss=nrmse
 attn=scse
 
-mnt_dir=/mnt/nfs/home/mvsousa/the-biomassters/1st-place/
+mnt_dir=/mnt/nfs/home/mvsousa/Research_Project_Biomass_Prediction/1st-place-biomassters
 data_dir=$mnt_dir/data
 chkps_dir=$mnt_dir/models
 
