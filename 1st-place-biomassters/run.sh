@@ -4,9 +4,9 @@
 #PBS -k oe
 
 
-conda env create -f /mnt/nfs/home/mvsousa/the-biomassters/1st-place/environment.yml
+conda env create -f environment.yml
 conda init
-source /mnt/nfs/home/mvsousa/.bashrc
+source $HOME/.bashrc
 conda activate .1st-place-biomassters
 
 set -eu  # o pipefail
@@ -35,14 +35,27 @@ data_dir=$mnt_dir/data
 chkps_dir=$mnt_dir/models
 
 # used backbones = [vgg16, resnet18, resnet50t, mobilenetv2_140, tf_efficientnetv2_l_in21k, vit_base_patch16_224_in21k]
-backbone=${BACKBONE:-vgg16}
+backbone=${BACKBONE:-tf_efficientnetv2_l_in21k}
 BS=1
 FOLD=0
 
 echo "--> Iniciando o job para o backbone: ${backbone}"
 echo "--> Da época ${START_EPOCH} até ${END_EPOCH}"
 
-CHECKPOINT_LOAD=$chkps_dir/"${backbone}"_f"${FOLD}"_b"${BS}"x"${N_GPUS}"_e"${START_EPOCH}"_"${loss}"_devscse_attnlin_augs_decplus7
+1. Define uma variável vazia por padrão
+LOAD_OPTS=""
+
+if [ "${START_EPOCH}" -gt 0 ]; then
+    
+    CHECKPOINT_LOAD=$chkps_dir/"${backbone}"_f"${FOLD}"_b"${BS}"x"${N_GPUS}"_e"${START_EPOCH}"_"${loss}"_devscse_attnlin_augs_decplus7
+    
+    LOAD_OPTS="--load $CHECKPOINT_LOAD/model_last.pth"
+    
+    echo "--> Retomando treinamento de: $CHECKPOINT_LOAD"
+else
+    echo "--> Iniciando treinamento do zero (Scratch)"
+fi
+
 CHECKPOINT=$chkps_dir/"${backbone}"_f"${FOLD}"_b"${BS}"x"${N_GPUS}"_e"${END_EPOCH}"_"${loss}"_devscse_attnlin_augs_decplus7
 
 MASTER_PORT="${PORT}" CUDA_VISIBLE_DEVICES="${GPU}" torchrun --nproc_per_node="${N_GPUS}" \
@@ -63,7 +76,7 @@ MASTER_PORT="${PORT}" CUDA_VISIBLE_DEVICES="${GPU}" torchrun --nproc_per_node="$
         --fold "${FOLD}" \
         --scheduler-mode "${MODE}" \
         --batch-size "${BS}" \
-        --load $CHECKPOINT_LOAD/model_last.pth \
+        $LOAD_OPTS \
         --augs \
         --dec-attn-type $attn \
         --dec-channels 384 368 352 336 320 \
