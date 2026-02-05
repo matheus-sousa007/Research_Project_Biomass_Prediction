@@ -1,0 +1,21 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Research Project Biomassters Code
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Matheus
+    family-names: Ventura de Sousa
+    email: mvsousa5@gmail.com
+    affiliation: University of São Paulo
+repository-code: >-
+  https://github.com/matheus-sousa007/Research_Project_Biomass_Prediction
+keywords:
+  - Deep Learning
+  - Computer Vision
+  - Research Project
+license: MIT
