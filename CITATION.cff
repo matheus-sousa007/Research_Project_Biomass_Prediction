@@ -8,8 +8,8 @@ message: >-
   metadata from this file.
 type: software
 authors:
-  - given-names: Matheus
-    family-names: Ventura de Sousa
+  - given-names: Matheus Ventura de
+    family-names: Sousa
     email: mvsousa5@gmail.com
     affiliation: University of São Paulo
 repository-code: >-
